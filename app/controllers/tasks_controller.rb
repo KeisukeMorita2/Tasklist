@@ -1,6 +1,9 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
+     if logged_in?
+      @task = current_user.tasks.build  
+      @tasks = current_user.tasks.order(id: :desc)
+     end
   end
   
   def show
@@ -12,7 +15,7 @@ class TasksController < ApplicationController
   end
   
   def create
-    @tasks = Task.new(task_params)
+    @tasks = current_user.tasks.new(task_params)
     
     if @tasks.save
       flash[:success] = 'Task が正常に作成されました'

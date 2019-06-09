@@ -5,4 +5,6 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   validates :name, presence: true, length: { maximum: 50 }
   has_secure_password
+  
+  has_many :tasks
 end
